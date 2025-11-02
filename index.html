@@ -192,10 +192,10 @@ document.querySelectorAll('[data-name]').forEach(p=>{
   });
 });
 </script><script>
-// Load saved sales data from // localStorage REMOVED if exists
-if(// localStorage REMOVED.getItem("SALES_DATA")){
+// Load saved sales data from localStorage if exists
+if(localStorage.getItem("SALES_DATA")){
     try {
-        let saved = JSON.parse(// localStorage REMOVED.getItem("SALES_DATA"));
+        let saved = JSON.parse(localStorage.getItem("SALES_DATA"));
         Object.assign(SALES_DATA, saved);
         updatePercent();
     } catch(e){}
@@ -203,25 +203,6 @@ if(// localStorage REMOVED.getItem("SALES_DATA")){
 
 // Save whenever user updates sales
 document.getElementById('saveBtn').addEventListener('click', ()=>{
-    // localStorage REMOVED.setItem("SALES_DATA", JSON.stringify(SALES_DATA));
+    localStorage.setItem("SALES_DATA", JSON.stringify(SALES_DATA));
 });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const supabase = supabase.createClient("https://hdxxhgifllgmnxytroan.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkeHhoZ2lmbGxnbW54eXRyb2FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwNjMzMjYsImV4cCI6MjA3NzYzOTMyNn0.AVss4tebIoL7X6j61ICYbs-c4Z792-pZmUTJzJUbtAI");
-
-async function loadSales() {
-  const { data, error } = await supabase.from("sales").select("*");
-  if (!error && data) {
-    data.forEach(r => { SALES_DATA[r.province] = r.value; });
-    updatePercent();
-  }
-}
-loadSales();
-
-async function saveSale(province, value) {
-  await supabase.from("sales").upsert({province: province, value: value});
-}
-</script>
-
-</body></html>
+</script></body></html>
